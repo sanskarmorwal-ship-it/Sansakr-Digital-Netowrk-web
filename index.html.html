@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sanskar Digital Network – CCTV Installation & Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#D4A017;
+  --gold-light:#F5D060;
+  --gold-dark:#9A7200;
+  --gold-muted:#7A6010;
+  --black:#080808;
+  --black2:#111111;
+  --black3:#1a1a1a;
+  --black4:#222222;
+  --text:#e8e0cc;
+  --text-muted:#9a8f70;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Raleway',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--text);font-family:var(--sans);font-weight:400;overflow-x:hidden}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--black2)}
+::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:3px}
+
+/* NOISE TEXTURE OVERLAY */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 60px;height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,160,23,0.15);background:rgba(8,8,8,0.95);backdrop-filter:blur(12px)}
+.nav-logo{display:flex;align-items:center;gap:14px}
+.nav-logo-icon{width:36px;height:36px}
+.nav-brand{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--gold-light);letter-spacing:2px;line-height:1.1}
+.nav-brand span{display:block;font-family:var(--sans);font-size:9px;font-weight:500;letter-spacing:5px;color:var(--gold-muted);text-transform:uppercase}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.3s;font-weight:500}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--sans);font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:10px 22px;cursor:pointer;transition:all 0.3s;font-weight:500}
+.nav-cta:hover{background:var(--gold);color:var(--black)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 60px 80px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%, rgba(212,160,23,0.06) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 80% 80%, rgba(212,160,23,0.04) 0%, transparent 60%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,160,23,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(212,160,23,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
+.hero-content{position:relative;z-index:2;max-width:640px}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(212,160,23,0.3);padding:8px 18px;margin-bottom:32px;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:500}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.4)}}
+.hero h1{font-family:var(--serif);font-size:clamp(48px,7vw,90px);font-weight:700;line-height:1;color:#fff;margin-bottom:8px}
+.hero h1 span{color:var(--gold)}
+.hero-subtitle{font-family:var(--serif);font-size:clamp(22px,3.5vw,42px);font-weight:400;color:var(--text-muted);margin-bottom:32px;font-style:italic}
+.hero-desc{font-size:14px;line-height:1.9;color:var(--text-muted);max-width:480px;margin-bottom:48px;font-weight:300;letter-spacing:0.5px}
+.hero-btns{display:flex;gap:20px;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--black);border:none;font-family:var(--sans);font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:16px 36px;cursor:pointer;font-weight:600;transition:all 0.3s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--gold);border:1px solid var(--gold);font-family:var(--sans);font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:16px 36px;cursor:pointer;font-weight:500;transition:all 0.3s;text-decoration:none;display:inline-block}
+.btn-outline:hover{background:rgba(212,160,23,0.1);transform:translateY(-2px)}
+.hero-camera{position:absolute;right:8%;top:50%;transform:translateY(-50%);opacity:0.9}
+.hero-stats{display:flex;gap:48px;margin-top:64px;padding-top:48px;border-top:1px solid rgba(212,160,23,0.15)}
+.stat-item{text-align:left}
+.stat-num{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--gold-light);line-height:1}
+.stat-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-top:6px;font-weight:500}
+
+/* SECTION COMMON */
+section{padding:100px 60px}
+.section-label{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:16px}
+.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--gold)}
+.section-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:16px}
+.section-title span{color:var(--gold)}
+.section-sub{font-size:14px;color:var(--text-muted);line-height:1.8;max-width:560px;font-weight:300}
+
+/* TICKER */
+.ticker{background:var(--gold);padding:14px 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-flex;animation:ticker 30s linear infinite}
+.ticker-item{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--black);font-weight:700;padding:0 40px}
+.ticker-item::after{content:'◆';margin-left:40px;opacity:0.5}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px;margin-top:64px}
+.service-card{background:var(--black2);padding:40px 36px;border:1px solid rgba(212,160,23,0.1);position:relative;overflow:hidden;transition:all 0.4s;cursor:default}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform 0.4s}
+.service-card:hover::before{transform:scaleX(1)}
+.service-card:hover{border-color:rgba(212,160,23,0.3);background:var(--black3);transform:translateY(-4px)}
+.service-icon{margin-bottom:24px}
+.service-num{font-family:var(--serif);font-size:11px;letter-spacing:4px;color:var(--gold-muted);font-weight:600;margin-bottom:16px;text-transform:uppercase}
+.service-card h3{font-family:var(--serif);font-size:22px;font-weight:700;color:#fff;margin-bottom:12px;line-height:1.2}
+.service-card p{font-size:13px;line-height:1.9;color:var(--text-muted);font-weight:300}
+.service-card .learn-more{display:inline-flex;align-items:center;gap:8px;margin-top:24px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;opacity:0;transition:opacity 0.3s}
+.service-card:hover .learn-more{opacity:1}
+
+/* ABOUT */
+.about{background:var(--black2)}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-visual{position:relative}
+.about-img-frame{width:100%;aspect-ratio:4/3;background:var(--black3);border:1px solid rgba(212,160,23,0.2);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.about-img-frame::before{content:'';position:absolute;inset:8px;border:1px solid rgba(212,160,23,0.1)}
+.about-badge-float{position:absolute;bottom:-20px;right:-20px;background:var(--gold);padding:20px 28px;color:var(--black)}
+.about-badge-float .big{font-family:var(--serif);font-size:42px;font-weight:700;line-height:1;display:block}
+.about-badge-float .small{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:600}
+.about-text{}
+.about-features{margin-top:40px;display:flex;flex-direction:column;gap:20px}
+.about-feature{display:flex;gap:20px;align-items:flex-start}
+.feat-icon{width:40px;height:40px;background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.feat-text h4{font-family:var(--serif);font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
+.feat-text p{font-size:12px;color:var(--text-muted);line-height:1.7;font-weight:300}
+
+/* WHY US */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:64px}
+.why-card{text-align:center;padding:40px 24px;border:1px solid rgba(212,160,23,0.1);background:var(--black2);transition:all 0.3s;position:relative}
+.why-card:hover{border-color:var(--gold);background:var(--black3)}
+.why-icon{width:60px;height:60px;border:1px solid rgba(212,160,23,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;background:rgba(212,160,23,0.05)}
+.why-card h3{font-family:var(--serif);font-size:18px;font-weight:700;color:#fff;margin-bottom:10px}
+.why-card p{font-size:12px;color:var(--text-muted);line-height:1.8;font-weight:300}
+
+/* PROCESS */
+.process{background:var(--black2)}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px;position:relative}
+.process-steps::before{content:'';position:absolute;top:36px;left:calc(12.5%);right:calc(12.5%);height:1px;background:linear-gradient(90deg,transparent,var(--gold-dark),var(--gold),var(--gold-dark),transparent)}
+.step{text-align:center;padding:0 20px}
+.step-num{width:72px;height:72px;border:1px solid var(--gold);background:var(--black2);font-family:var(--serif);font-size:24px;font-weight:700;color:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;z-index:2}
+.step h3{font-family:var(--serif);font-size:16px;font-weight:700;color:#fff;margin-bottom:8px}
+.step p{font-size:12px;color:var(--text-muted);line-height:1.8;font-weight:300}
+
+/* TESTIMONIALS */
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.testi-card{background:var(--black2);border:1px solid rgba(212,160,23,0.1);padding:36px;position:relative}
+.testi-card::before{content:'\201C';position:absolute;top:20px;right:24px;font-family:var(--serif);font-size:80px;color:rgba(212,160,23,0.1);line-height:1}
+.stars{display:flex;gap:4px;margin-bottom:20px}
+.star{color:var(--gold);font-size:13px}
+.testi-card p{font-size:13px;line-height:1.9;color:var(--text-muted);font-style:italic;font-weight:300;margin-bottom:24px}
+.testi-author{display:flex;align-items:center;gap:14px}
+.testi-avatar{width:44px;height:44px;background:rgba(212,160,23,0.15);border:1px solid rgba(212,160,23,0.3);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:16px;font-weight:700;color:var(--gold)}
+.testi-info strong{display:block;font-size:13px;color:#fff;font-weight:600}
+.testi-info span{font-size:11px;color:var(--text-muted);letter-spacing:1px}
+
+/* CTA BANNER */
+.cta-banner{background:linear-gradient(135deg,var(--black3) 0%,rgba(212,160,23,0.08) 50%,var(--black3) 100%);border-top:1px solid rgba(212,160,23,0.2);border-bottom:1px solid rgba(212,160,23,0.2);text-align:center;padding:80px 60px}
+.cta-banner h2{font-family:var(--serif);font-size:clamp(32px,4vw,54px);font-weight:700;color:#fff;margin-bottom:16px}
+.cta-banner h2 span{color:var(--gold)}
+.cta-banner p{font-size:14px;color:var(--text-muted);margin-bottom:40px;font-weight:300;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.8}
+.cta-phone{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--gold-light);margin-bottom:32px;letter-spacing:2px}
+
+/* CONTACT */
+.contact-inner{display:grid;grid-template-columns:1fr 1.4fr;gap:80px}
+.contact-info{}
+.contact-detail{display:flex;gap:20px;margin-bottom:32px;align-items:flex-start}
+.c-icon{width:44px;height:44px;background:rgba(212,160,23,0.08);border:1px solid rgba(212,160,23,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.c-text strong{display:block;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-muted);margin-bottom:4px;font-weight:600}
+.c-text span{font-size:14px;color:var(--text);line-height:1.6}
+.contact-form{display:flex;flex-direction:column;gap:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-group label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-muted);font-weight:600}
+.form-group input,.form-group select,.form-group textarea{background:var(--black3);border:1px solid rgba(212,160,23,0.2);color:var(--text);font-family:var(--sans);font-size:13px;padding:14px 18px;outline:none;transition:border-color 0.3s;font-weight:300}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-group select option{background:var(--black3)}
+.submit-btn{background:var(--gold);color:var(--black);border:none;font-family:var(--sans);font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:18px 40px;cursor:pointer;font-weight:700;transition:all 0.3s;align-self:flex-start}
+.submit-btn:hover{background:var(--gold-light)}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid rgba(212,160,23,0.15);padding:60px 60px 30px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding-bottom:48px;border-bottom:1px solid rgba(212,160,23,0.1)}
+.footer-brand{}
+.footer-logo-name{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--gold-light);letter-spacing:2px;margin-bottom:4px}
+.footer-logo-sub{font-size:9px;letter-spacing:5px;color:var(--gold-muted);text-transform:uppercase;margin-bottom:16px;font-weight:500}
+.footer-brand p{font-size:12px;color:var(--text-muted);line-height:1.9;max-width:280px;font-weight:300}
+.footer-col h4{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:20px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul li a{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.3s;font-weight:300}
+.footer-col ul li a:hover{color:var(--gold)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px}
+.footer-copy{font-size:11px;color:var(--text-muted);font-weight:300}
+.footer-copy span{color:var(--gold)}
+.footer-socials{display:flex;gap:12px}
+.social-btn{width:36px;height:36px;border:1px solid rgba(212,160,23,0.25);display:flex;align-items:center;justify-content:center;color:var(--text-muted);text-decoration:none;font-size:12px;transition:all 0.3s;font-weight:600}
+.social-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* FLOATING WHATSAPP */
+.wa-btn{position:fixed;bottom:32px;right:32px;background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);z-index:999;transition:transform 0.3s}
+.wa-btn:hover{transform:scale(1.1)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-content>*{animation:fadeUp 0.8s ease both}
+.hero-badge{animation-delay:0.1s}
+.hero h1{animation-delay:0.2s}
+.hero-subtitle{animation-delay:0.3s}
+.hero-desc{animation-delay:0.4s}
+.hero-btns{animation-delay:0.5s}
+.hero-stats{animation-delay:0.6s}
+
+@media(max-width:900px){
+  nav{padding:0 24px}
+  .nav-links{display:none}
+  section{padding:70px 24px}
+  .hero{padding:100px 24px 60px}
+  .about-inner,.contact-inner{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .process-steps{grid-template-columns:repeat(2,1fr)}
+  .process-steps::before{display:none}
+  .testimonials-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .hero-camera{display:none}
+  .footer-bottom{flex-direction:column;gap:16px;text-align:center}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg class="nav-logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="18,2 34,11 34,25 18,34 2,25 2,11" fill="none" stroke="#D4A017" stroke-width="1"/>
+      <circle cx="18" cy="18" r="8" fill="none" stroke="#D4A017" stroke-width="0.8"/>
+      <circle cx="18" cy="18" r="3" fill="#D4A017"/>
+    </svg>
+    <div class="nav-brand">SANSKAR<span>Digital Network</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Clients</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span>Trusted Security Experts</span>
+    </div>
+    <h1>Guard What<br/><span>Matters Most</span></h1>
+    <p class="hero-subtitle">Premium CCTV Solutions</p>
+    <p class="hero-desc">Sanskar Digital Network delivers world-class CCTV installation, maintenance, and monitoring services for homes, businesses, and enterprises across the region. State-of-the-art technology. Unmatched expertise.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Book Free Survey</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Projects Done</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Support</div>
+      </div>
+    </div>
+  </div>
+  <!-- Hero Camera SVG -->
+  <div class="hero-camera">
+    <svg width="340" height="280" viewBox="0 0 340 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Glow -->
+      <ellipse cx="200" cy="160" rx="120" ry="80" fill="rgba(212,160,23,0.04)"/>
+      <!-- Mount -->
+      <rect x="188" y="50" width="14" height="55" rx="3" fill="url(#hg1)"/>
+      <rect x="182" y="44" width="26" height="14" rx="3" fill="url(#hg1)"/>
+      <!-- Body -->
+      <rect x="100" y="92" width="130" height="54" rx="12" fill="url(#hg2)" stroke="#D4A017" stroke-width="0.8"/>
+      <!-- Snout -->
+      <rect x="230" y="102" width="42" height="34" rx="6" fill="url(#hg1)"/>
+      <!-- Lens outer -->
+      <circle cx="285" cy="119" r="22" fill="#0d0d0d" stroke="#D4A017" stroke-width="2"/>
+      <!-- Lens inner -->
+      <circle cx="285" cy="119" r="16" fill="#0d0b1a" stroke="#F5D060" stroke-width="0.8"/>
+      <!-- Lens reflections -->
+      <circle cx="285" cy="119" r="6" fill="#1a1a3a"/>
+      <circle cx="280" cy="114" r="2.5" fill="rgba(255,255,255,0.3)"/>
+      <!-- LEDs -->
+      <circle cx="114" cy="103" r="4" fill="#1a0a00" stroke="#D4A017" stroke-width="0.8"/>
+      <circle cx="128" cy="98" r="4" fill="#1a0a00" stroke="#D4A017" stroke-width="0.8"/>
+      <circle cx="142" cy="96" r="4" fill="#1a0a00" stroke="#D4A017" stroke-width="0.8"/>
+      <circle cx="114" cy="127" r="4" fill="#1a0a00" stroke="#D4A017" stroke-width="0.8"/>
+      <circle cx="128" cy="132" r="4" fill="#1a0a00" stroke="#D4A017" stroke-width="0.8"/>
+      <circle cx="142" cy="134" r="4" fill="#1a0a00" stroke="#D4A017" stroke-width="0.8"/>
+      <!-- FOV arcs -->
+      <path d="M285,119 L335,78 A68,68 0 0,1 335,160 Z" fill="rgba(212,160,23,0.05)"/>
+      <path d="M285,119 L330,85 A58,58 0 0,1 330,153 Z" fill="none" stroke="#D4A017" stroke-width="0.6" stroke-dasharray="4,4" opacity="0.4"/>
+      <path d="M285,119 L325,92 A48,48 0 0,1 325,146 Z" fill="none" stroke="#D4A017" stroke-width="0.4" stroke-dasharray="3,5" opacity="0.25"/>
+      <!-- Cable -->
+      <path d="M195 44 Q195 28 208 22" stroke="#D4A017" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M208 22 Q220 16 215 2" stroke="#9A7200" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <!-- Record indicator -->
+      <circle cx="163" cy="60" r="6" fill="#cc0000" opacity="0.8"/>
+      <circle cx="163" cy="60" r="4" fill="#ff2222"/>
+      <text x="174" y="65" font-family="monospace" font-size="10" fill="#D4A017" opacity="0.7">REC</text>
+      <!-- Signal waves -->
+      <path d="M40,200 Q80,180 120,200 Q160,220 200,200" stroke="#D4A017" stroke-width="0.8" fill="none" opacity="0.3"/>
+      <path d="M50,215 Q90,195 130,215 Q170,235 210,215" stroke="#D4A017" stroke-width="0.5" fill="none" opacity="0.2"/>
+      <defs>
+        <linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F5D060"/><stop offset="100%" stop-color="#9A7200"/></linearGradient>
+        <linearGradient id="hg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2a2000"/><stop offset="100%" stop-color="#0d0a00"/></linearGradient>
+      </defs>
+    </svg>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">CCTV Installation</span>
+    <span class="ticker-item">HD & 4K Cameras</span>
+    <span class="ticker-item">24/7 Monitoring</span>
+    <span class="ticker-item">Annual Maintenance</span>
+    <span class="ticker-item">IP Camera Systems</span>
+    <span class="ticker-item">Night Vision</span>
+    <span class="ticker-item">Remote Access</span>
+    <span class="ticker-item">DVR / NVR Setup</span>
+    <span class="ticker-item">CCTV Installation</span>
+    <span class="ticker-item">HD & 4K Cameras</span>
+    <span class="ticker-item">24/7 Monitoring</span>
+    <span class="ticker-item">Annual Maintenance</span>
+    <span class="ticker-item">IP Camera Systems</span>
+    <span class="ticker-item">Night Vision</span>
+    <span class="ticker-item">Remote Access</span>
+    <span class="ticker-item">DVR / NVR Setup</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title">Comprehensive <span>Security Solutions</span></h2>
+  <p class="section-sub">From single-camera home setups to enterprise-grade multi-site surveillance networks, we handle it all with precision and care.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><rect x="4" y="14" width="28" height="18" rx="4" fill="none" stroke="#D4A017" stroke-width="1.2"/><path d="M32 19l8-4v14l-8-4V19Z" fill="none" stroke="#D4A017" stroke-width="1.2"/><circle cx="12" cy="23" r="3" stroke="#D4A017" stroke-width="0.8"/></svg>
+      </div>
+      <div class="service-num">01</div>
+      <h3>CCTV Camera Installation</h3>
+      <p>Professional installation of HD, Full HD, and 4K cameras for homes, shops, offices, warehouses, and large premises. Indoor & outdoor rated.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><rect x="6" y="8" width="32" height="22" rx="3" fill="none" stroke="#D4A017" stroke-width="1.2"/><rect x="10" y="12" width="8" height="6" rx="1" stroke="#D4A017" stroke-width="0.8"/><rect x="22" y="12" width="12" height="3" rx="1" fill="#D4A017" opacity="0.4"/><rect x="22" y="17" width="8" height="3" rx="1" fill="#D4A017" opacity="0.25"/><rect x="14" y="30" width="16" height="6" rx="2" stroke="#D4A017" stroke-width="1"/><line x1="22" y1="30" x2="22" y2="36" stroke="#D4A017" stroke-width="0.8"/></svg>
+      </div>
+      <div class="service-num">02</div>
+      <h3>DVR / NVR Configuration</h3>
+      <p>Complete digital & network video recorder setup with storage configuration, remote viewing activation, and mobile app integration.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="20" r="12" stroke="#D4A017" stroke-width="1.2"/><circle cx="22" cy="20" r="6" stroke="#D4A017" stroke-width="0.8"/><circle cx="22" cy="20" r="2" fill="#D4A017"/><path d="M22 8 L22 4M22 36 L22 32M8 20 L4 20M40 20 L36 20" stroke="#D4A017" stroke-width="1" stroke-linecap="round"/></svg>
+      </div>
+      <div class="service-num">03</div>
+      <h3>Remote Monitoring Setup</h3>
+      <p>View your property live from anywhere in the world via smartphone or PC. We configure secure remote access with cloud storage options.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><path d="M22 4L36 10V22C36 30 29 37 22 40C15 37 8 30 8 22V10L22 4Z" fill="none" stroke="#D4A017" stroke-width="1.2"/><path d="M16 22l4 4 8-8" stroke="#D4A017" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="service-num">04</div>
+      <h3>Annual Maintenance Contracts</h3>
+      <p>Keep your system in peak condition with our AMC plans — scheduled servicing, cleaning, health checks, and priority breakdown support.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><rect x="8" y="16" width="18" height="14" rx="3" stroke="#D4A017" stroke-width="1.2"/><circle cx="17" cy="23" r="3" stroke="#D4A017" stroke-width="0.8"/><path d="M26 20 c4-2 8 0 10 4" stroke="#D4A017" stroke-width="1" stroke-linecap="round"/><path d="M26 23 c3-1 6 1 7 3" stroke="#D4A017" stroke-width="0.8" stroke-linecap="round"/><path d="M26 26 c2 0 4 1 5 2" stroke="#D4A017" stroke-width="0.6" stroke-linecap="round"/></svg>
+      </div>
+      <div class="service-num">05</div>
+      <h3>IP & Wireless Camera Systems</h3>
+      <p>Cable-free installations using Wi-Fi IP cameras — ideal for rented premises, heritage buildings, and locations where cabling is not possible.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="14" r="6" stroke="#D4A017" stroke-width="1.2"/><path d="M10 38c0-7 5.4-12 12-12s12 5 12 12" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/><path d="M32 20l4 2-2 3" stroke="#D4A017" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><path d="M36 22c2 3 2 7-1 10" stroke="#D4A017" stroke-width="0.8" stroke-linecap="round"/></svg>
+      </div>
+      <div class="service-num">06</div>
+      <h3>Repair & Troubleshooting</h3>
+      <p>Fast diagnosis and repair of faulty cameras, recorders, cabling, and power issues. Quick turnaround to restore your security coverage.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-visual">
+      <div class="about-img-frame">
+        <svg width="100%" viewBox="0 0 440 330" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="440" height="330" fill="#111"/>
+          <!-- Monitor screen grid -->
+          <rect x="20" y="20" width="190" height="135" rx="4" fill="#0d0d0d" stroke="#333" stroke-width="0.8"/>
+          <rect x="22" y="22" width="186" height="131" rx="3" fill="#0a0a00" opacity="0.8"/>
+          <rect x="230" y="20" width="190" height="135" rx="4" fill="#0d0d0d" stroke="#333" stroke-width="0.8"/>
+          <rect x="20" y="165" width="190" height="135" rx="4" fill="#0d0d0d" stroke="#333" stroke-width="0.8"/>
+          <rect x="230" y="165" width="190" height="135" rx="4" fill="#0d0d0d" stroke="#333" stroke-width="0.8"/>
+          <!-- Grid lines in monitors -->
+          <line x1="22" y1="65" x2="208" y2="65" stroke="#1a1a00" stroke-width="0.5"/>
+          <line x1="22" y1="108" x2="208" y2="108" stroke="#1a1a00" stroke-width="0.5"/>
+          <line x1="94" y1="22" x2="94" y2="153" stroke="#1a1a00" stroke-width="0.5"/>
+          <line x1="140" y1="22" x2="140" y2="153" stroke="#1a1a00" stroke-width="0.5"/>
+          <!-- Camera icons in monitors -->
+          <rect x="60" y="58" width="80" height="40" rx="6" fill="#1a1200" stroke="#D4A017" stroke-width="0.8"/>
+          <circle cx="155" cy="78" r="12" fill="#0d0b00" stroke="#D4A017" stroke-width="0.8"/>
+          <circle cx="155" cy="78" r="7" fill="#0a0a15" stroke="#F5D060" stroke-width="0.6"/>
+          <circle cx="155" cy="78" r="3" fill="#D4A017" opacity="0.6"/>
+          <!-- REC badge top left monitor -->
+          <circle cx="36" cy="32" r="4" fill="#cc2200"/>
+          <text x="44" y="36" font-family="monospace" font-size="9" fill="#aaa">REC 01</text>
+          <!-- Timestamp -->
+          <text x="30" y="148" font-family="monospace" font-size="8" fill="#D4A017" opacity="0.7">09:42:17 AM</text>
+          <!-- Top right monitor - person silhouette -->
+          <ellipse cx="325" cy="80" rx="18" ry="22" fill="#1a1200" stroke="#D4A017" stroke-width="0.6" opacity="0.6"/>
+          <ellipse cx="325" cy="65" rx="9" ry="10" fill="#D4A017" opacity="0.3"/>
+          <circle cx="395" cy="32" r="4" fill="#cc2200"/>
+          <text x="355" y="36" font-family="monospace" font-size="9" fill="#aaa">REC 02</text>
+          <text x="240" y="148" font-family="monospace" font-size="8" fill="#D4A017" opacity="0.7">09:42:17 AM</text>
+          <!-- Bottom monitors -->
+          <rect x="40" y="200" width="80" height="50" rx="4" fill="#0d0a00" stroke="#555" stroke-width="0.5"/>
+          <circle cx="155" cy="220" r="14" fill="#0d0b00" stroke="#D4A017" stroke-width="0.8"/>
+          <circle cx="155" cy="220" r="8" fill="#0a0a15"/>
+          <circle cx="155" cy="220" r="3" fill="#D4A017" opacity="0.5"/>
+          <text x="30" y="292" font-family="monospace" font-size="8" fill="#D4A017" opacity="0.7">09:42:17 AM</text>
+          <rect x="250" y="200" width="80" height="50" rx="4" fill="#0d0a00" stroke="#555" stroke-width="0.5"/>
+          <circle cx="375" cy="230" r="18" fill="#1a1200" stroke="#D4A017" stroke-width="0.6" opacity="0.5"/>
+          <text x="240" y="292" font-family="monospace" font-size="8" fill="#D4A017" opacity="0.7">09:42:17 AM</text>
+          <!-- Center label -->
+          <rect x="180" y="152" width="80" height="28" rx="2" fill="#D4A017" opacity="0.9"/>
+          <text x="220" y="170" font-family="monospace" font-size="10" fill="#000" text-anchor="middle" font-weight="700">LIVE ●</text>
+        </svg>
+      </div>
+      <div class="about-badge-float">
+        <span class="big">8+</span>
+        <span class="small">Years of Trust</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">About Us</div>
+      <h2 class="section-title">Your Trusted <span>Security Partner</span></h2>
+      <p class="section-sub">Sanskar Digital Network was founded with a single mission — to make professional-grade security accessible to every home and business. We bring together cutting-edge technology and hands-on expertise.</p>
+      <div class="about-features">
+        <div class="about-feature">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L18 5.5V11C18 15 14.5 18.5 10 20C5.5 18.5 2 15 2 11V5.5L10 2Z" stroke="#D4A017" stroke-width="1.2"/><path d="M7 10l2 2 4-4" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="feat-text">
+            <h4>Licensed & Certified Technicians</h4>
+            <p>All our engineers are trained, certified, and experienced in leading CCTV brands including Hikvision, Dahua, CP Plus, and more.</p>
+          </div>
+        </div>
+        <div class="about-feature">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#D4A017" stroke-width="1.2"/><path d="M10 6v4l3 3" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="feat-text">
+            <h4>Same-Day Response</h4>
+            <p>We pride ourselves on rapid response times — most service calls are attended on the same day. Your security never waits.</p>
+          </div>
+        </div>
+        <div class="about-feature">
+          <div class="feat-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" stroke="#D4A017" stroke-width="1.2"/><path d="M7 10h6M10 7v6" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="feat-text">
+            <h4>End-to-End Solutions</h4>
+            <p>From site survey and system design to installation, configuration, training, and ongoing maintenance — we handle every step.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section id="why">
+  <div class="section-label">Why Choose Us</div>
+  <h2 class="section-title">The <span>Sanskar</span> Difference</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="#D4A017" stroke-width="1.2"/><path d="M9 14l3 3 7-7" stroke="#D4A017" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Quality Guaranteed</h3>
+      <p>We use only branded, warranty-backed equipment. Every installation is tested and certified before handover.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="10" width="20" height="14" rx="3" stroke="#D4A017" stroke-width="1.2"/><path d="M10 10V8a4 4 0 018 0v2" stroke="#D4A017" stroke-width="1.2"/><circle cx="14" cy="17" r="2" fill="#D4A017" opacity="0.7"/></svg>
+      </div>
+      <h3>Transparent Pricing</h3>
+      <p>No hidden charges. We provide detailed, itemised quotes upfront so you know exactly what you're paying for.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M5 14a9 9 0 1018 0A9 9 0 005 14z" stroke="#D4A017" stroke-width="1.2"/><path d="M14 9v5l4 2" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <h3>24/7 Support</h3>
+      <p>Round-the-clock helpline and on-call engineers mean you're never left without support when it matters most.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3L25 8V16C25 22 20 26.5 14 28C8 26.5 3 22 3 16V8L14 3Z" stroke="#D4A017" stroke-width="1.2"/><path d="M10 14l3 3 5-5" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Proven Track Record</h3>
+      <p>500+ successful installations across residential, commercial, industrial, and government sectors. Our work speaks for itself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">Our <span>Simple Process</span></h2>
+  <p class="section-sub">Getting your security system installed is straightforward. Here's what to expect when you work with us.</p>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Free Site Survey</h3>
+      <p>We visit your premises, assess vulnerabilities, and understand your specific requirements — at no cost.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Custom Proposal</h3>
+      <p>We design a tailored system and provide a transparent, itemised quote within 24 hours.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Professional Install</h3>
+      <p>Our certified engineers install everything cleanly and efficiently, minimising disruption to your day.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Handover & Support</h3>
+      <p>Full system walkthrough, app setup on your phone, and ongoing support whenever you need us.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-label">Client Reviews</div>
+  <h2 class="section-title">What Our <span>Clients Say</span></h2>
+  <div class="testimonials-grid">
+    <div class="testi-card">
+      <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <p>Excellent service from start to finish. The team arrived on time, completed the installation neatly, and walked me through the app. My shop has never felt more secure.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">RK</div>
+        <div class="testi-info"><strong>Ramesh Kumar</strong><span>Retail Shop Owner, Indore</span></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <p>We needed CCTV for our entire factory floor. Sanskar Digital Network handled everything professionally — from the survey to the final setup. Highly recommended.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">PS</div>
+        <div class="testi-info"><strong>Priya Sharma</strong><span>Factory Manager, Pithampur</span></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+      <p>Fast response when our camera stopped working. They diagnosed and fixed the issue within hours. Their AMC plan gives us total peace of mind year-round.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AV</div>
+        <div class="testi-info"><strong>Anil Verma</strong><span>Residential Client, Bhopal</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <h2>Ready to <span>Secure Your Property?</span></h2>
+  <p>Get a free site survey and no-obligation quote from our expert team. Same-day response guaranteed.</p>
+  <div class="cta-phone">📞 +91 79878 55901</div>
+  <a href="#contact" class="btn-primary">Book Your Free Survey</a>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2 class="section-title" style="margin-bottom:48px">Contact <span>Our Team</span></h2>
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="contact-detail">
+        <div class="c-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5a2 2 0 012-2h10a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" stroke="#D4A017" stroke-width="1.2"/><path d="M3 8h14M8 8v9" stroke="#D4A017" stroke-width="1" stroke-linecap="round"/></svg>
+        </div>
+        <div class="c-text"><strong>Address</strong><span>198/3 Nanda Nagar,<br/>Indore, Madhya Pradesh – 452011</span></div>
+      </div>
+      <div class="contact-detail">
+        <div class="c-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 4a1 1 0 011-1h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2L17 13v3a1 1 0 01-1 1C7.163 17 3 12.837 3 8V4z" stroke="#D4A017" stroke-width="1.2"/></svg>
+        </div>
+        <div class="c-text"><strong>Phone</strong><span>+91 79878 55901<br/>+91 91111 27704</span></div>
+      </div>
+      <div class="contact-detail">
+        <div class="c-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="12" rx="2" stroke="#D4A017" stroke-width="1.2"/><path d="M2 7l8 5 8-5" stroke="#D4A017" stroke-width="1" stroke-linecap="round"/></svg>
+        </div>
+        <div class="c-text"><strong>Email</strong><span>sanskardigitalnetwork@gmail.com<br//span></div>
+      </div>
+      <div class="contact-detail">
+        <div class="c-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#D4A017" stroke-width="1.2"/><path d="M10 6v4l3 3" stroke="#D4A017" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="c-text"><strong>Working Hours</strong><span>Monday – Saturday: 9:00 AM – 7:00 PM<br/>Emergency support: 24/7</span></div>
+      </div>
+    </div>
+    <div class="contact-form">
+
+      <!-- SUCCESS MESSAGE -->
+      <div id="form-success" style="display:none;background:rgba(212,160,23,0.08);border:1px solid var(--gold);padding:32px;text-align:center;margin-bottom:20px">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="margin:0 auto 16px;display:block"><circle cx="24" cy="24" r="22" stroke="#D4A017" stroke-width="1.5"/><path d="M14 24l7 7 13-13" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p style="font-family:var(--serif);font-size:22px;color:#fff;margin-bottom:8px">Enquiry Sent Successfully!</p>
+        <p style="font-size:13px;color:var(--text-muted);font-weight:300">Thank you! Our team will contact you within 24 hours.</p>
+      </div>
+
+      <!-- ERROR MESSAGE -->
+      <div id="form-error" style="display:none;background:rgba(180,30,30,0.1);border:1px solid #cc3333;padding:20px;margin-bottom:20px;font-size:13px;color:#ff8888">
+        ⚠ Something went wrong. Please try again or call us directly at <strong>+91 79878 55901</strong>.
+      </div>
+
+      <form id="enquiry-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" name="name" id="f-name" placeholder="Your full name" required/>
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" name="phone" id="f-phone" placeholder="+91 00000 00000" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" id="f-email" placeholder="your@email.com"/>
+        </div>
+        <div class="form-group">
+          <label>Service Required *</label>
+          <select name="service" id="f-service" required>
+            <option value="">Select a service...</option>
+            <option>CCTV Camera Installation</option>
+            <option>DVR / NVR Configuration</option>
+            <option>Remote Monitoring Setup</option>
+            <option>Annual Maintenance Contract</option>
+            <option>IP / Wireless Camera System</option>
+            <option>Repair &amp; Troubleshooting</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea name="message" id="f-message" placeholder="Tell us about your property and security needs..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn" id="submit-btn">Send Enquiry →</button>
+        <p style="font-size:11px;color:var(--text-muted);margin-top:14px;font-weight:300">
+          ✦ Your data is safe with us and will never be shared with third parties.
+        </p>
+      </form>
+    </div>
+
+<script>
+document.getElementById('enquiry-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const btn = document.getElementById('submit-btn');
+  const name    = document.getElementById('f-name').value.trim();
+  const phone   = document.getElementById('f-phone').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const service = document.getElementById('f-service').value;
+  const message = document.getElementById('f-message').value.trim();
+
+  // Basic validation
+  if (!name || !phone || !service) {
+    document.getElementById('form-error').style.display = 'block';
+    document.getElementById('form-error').innerText = '⚠ Please fill in all required fields (Name, Phone, Service).';
+    return;
+  }
+
+  btn.innerText = 'Sending...';
+  btn.disabled = true;
+  document.getElementById('form-error').style.display = 'none';
+
+  try {
+    // ── FORMSPREE ─────────────────────────────────────────────
+    // STEP 1: Go to https://formspree.io and create a free account
+    // STEP 2: Create a new form and copy your Form ID
+    // STEP 3: Replace "YOUR_FORM_ID" below with your actual ID
+    // Example: https://formspree.io/f/xpwzabcd
+    // ──────────────────────────────────────────────────────────
+    const FORMSPREE_ID = xdabdygj; // ← Replace this
+
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, phone, email, service, message })
+    });
+
+    if (res.ok) {
+      document.getElementById('enquiry-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    } else {
+      throw new Error('Failed');
+    }
+  } catch(err) {
+    document.getElementById('form-error').style.display = 'block';
+    document.getElementById('form-error').innerText = '⚠ Something went wrong. Please call us at +91 79878 55901.';
+    btn.innerText = 'Send Enquiry →';
+    btn.disabled = false;
+  }
+});
+</script>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo-name">SANSKAR</div>
+      <div class="footer-logo-sub">Digital Network</div>
+      <p>Your trusted partner for professional CCTV installation, maintenance, and security solutions across Madhya Pradesh and beyond.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">CCTV Installation</a></li>
+        <li><a href="#">DVR / NVR Setup</a></li>
+        <li><a href="#">Remote Monitoring</a></li>
+        <li><a href="#">AMC Plans</a></li>
+        <li><a href="#">Repairs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Work</a></li>
+        <li><a href="#">Testimonials</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+9179878 55901">+91 79878 55901</a></li>
+        <li><a href="mailto:sanskardigitalnetwork@gmail.com">sanskardigitalnetwork@gmail.com</a></li>
+        <li><a href="#">Indore, MP – 452011</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 <span>Sanskar Digital Network</span>. All rights reserved. Designed with ♦ for your security.</p>
+    <div class="footer-socials">
+      <a href="#" class="social-btn">FB</a>
+      <a href="#" class="social-btn">IG</a>
+      <a href="#" class="social-btn">YT</a>
+      <a href="#" class="social-btn">WA</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/917987855901" class="wa-btn" target="_blank" title="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M14 2C7.373 2 2 7.373 2 14c0 2.118.555 4.107 1.524 5.833L2 26l6.293-1.504A11.94 11.94 0 0014 26c6.627 0 12-5.373 12-12S20.627 2 14 2zm5.844 16.26c-.246.69-1.43 1.32-1.97 1.38-.504.056-1.13.08-1.825-.116-.42-.12-.96-.28-1.65-.55-2.9-1.248-4.796-4.16-4.942-4.352-.146-.192-1.19-1.584-1.19-3.02 0-1.437.754-2.146 1.02-2.44.268-.293.585-.366.78-.366.196 0 .39.002.56.01.18.008.424-.068.663.506.247.587.838 2.04.912 2.186.073.146.122.316.025.512-.098.196-.146.317-.292.488-.146.17-.307.38-.438.51-.146.146-.298.304-.128.596.17.293.756 1.244 1.623 2.016 1.115.993 2.055 1.3 2.348 1.446.292.146.46.122.63-.073.17-.195.73-.853.925-1.146.195-.292.39-.243.657-.146.268.097 1.704.804 1.996.95.293.146.487.22.56.34.073.122.073.706-.173 1.396z"/></svg>
+</a>
+
+</body>
+</html>
